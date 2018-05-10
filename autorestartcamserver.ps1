@@ -1,4 +1,5 @@
-﻿$cred = get-credential ADMIN
+﻿#Gets the admin credentials for the IPMI connection
+$cred = get-credential ADMIN
 
 while ($true) {
     filter timestamp {"$(Get-Date -Format G): $_"}
@@ -9,13 +10,13 @@ while ($true) {
         Write-Output "$logname exists"
     } Else {
         Write-Output "$logname does NOT exist"
-        #creates one with this content at top
+        #creates one with this content $text at top
         $text = "Starting log for Ubuntu Video Server"
         $text | Out-File $logName
     }
     filter timestamp {"$(Get-Date -Format G): $_"}
     
-    #check status of server, which returns a true or false
+    #check status of server, which returns a true or false, replace with your own IP address
     if (Test-Connection 172.16.2.48) {
         #if true is returned, the server is up, so all clear displayed to console and
         #to log file
